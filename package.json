@@ -8,7 +8,7 @@
     "test:no-clean": "npx bddgen && npx playwright test",
     "test:ui": "npx bddgen && npx playwright test --ui",
     "test:headed": "npx bddgen && npx playwright test --headed",
-    "report": "npx playwright show-report reports/html",
+    "report": "node scripts/ensure-report.mjs && npx playwright show-report reports/html",
     "report:summary": "node scripts/generate-report-summary.mjs",
     "bddgen": "npx bddgen"
   },

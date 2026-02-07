@@ -65,16 +65,17 @@ npm test
 
 **Comportamiento de `npm test`:**
 1. **Limpieza:** Se vacía la carpeta `reports/` (html, json, screenshots) antes de ejecutar.
-2. **Ejecución:** Se generan los tests BDD y se ejecutan en **Chromium, Firefox y WebKit**.
+2. **Ejecución:** Se generan los tests BDD y se ejecutan en **Chromium**.
 3. **Evidencia:** En cada escenario se generan **video** e **imagen** (screenshot) para todos los runs, no solo en fallos.
 
 Para ejecutar sin limpiar reportes previos: `npm run test:no-clean`.
 
-Ver reporte HTML tras ejecutar:
+Ver reporte HTML:
 
-```bash
-npm run report
-```
+1. **Primero** ejecuta la suite para generar el reporte: `npm test`
+2. **Después** inicia el servidor del reporte: `npm run report`
+
+Se abrirá el navegador en **http://localhost:9323/** (o el puerto que indique Playwright). Si no carga, asegúrate de haber ejecutado `npm test` antes; sin reporte generado, el servidor no tiene contenido que mostrar.
 
 ---
 
