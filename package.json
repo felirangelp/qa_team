@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node scripts/clean-reports.mjs && npx bddgen && npx playwright test",
+    "test:vibefy": "node scripts/clean-reports.mjs && npx bddgen && npx playwright test --grep @vibefy",
+    "test:comfama": "node scripts/clean-reports.mjs && npx bddgen && npx playwright test --grep @comfama",
     "test:no-clean": "npx bddgen && npx playwright test",
     "test:ui": "npx bddgen && npx playwright test --ui",
     "test:headed": "npx bddgen && npx playwright test --headed",

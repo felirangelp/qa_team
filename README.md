@@ -6,13 +6,12 @@ Requisitos completos: [requirements.md](requirements.md).
 
 ---
 
-## URL bajo prueba
+## URLs bajo prueba
 
-Las pruebas se ejecutan sobre:
+- **Vibefy Challenges:** https://hack.vibefy.net/challenges — `npm run test:vibefy`
+- **Comfama:** https://www.comfama.com — `npm run test:comfama`
 
-**https://www.comfama.com**
-
-Los resultados de cada ejecución **deben validarse mediante el reporte detallado** (HTML en `reports/html`), no solo por la salida de consola. Ver sección [Reportes y validación](#reportes-y-validación).
+Por defecto `npm test` ejecuta todas las suites. Los resultados **deben validarse mediante el reporte detallado** (HTML en `reports/html`). Ver [Reportes y validación](#reportes-y-validación).
 
 ---
 
@@ -75,7 +74,7 @@ Ver reporte HTML:
 1. **Primero** ejecuta la suite para generar el reporte: `npm test`
 2. **Después** inicia el servidor del reporte: `npm run report`
 
-Se abrirá el navegador en **http://localhost:9323/** (o el puerto que indique Playwright). Si no carga, asegúrate de haber ejecutado `npm test` antes; sin reporte generado, el servidor no tiene contenido que mostrar.
+Se abrirá el navegador en **http://localhost:9323/** (o **http://127.0.0.1:9323**). Si no carga, asegúrate de haber ejecutado `npm test` antes; sin reporte generado, `npm run report` avisará y no iniciará el servidor.
 
 ---
 

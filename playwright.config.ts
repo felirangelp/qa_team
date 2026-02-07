@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
-const baseURL = process.env.BASE_URL || 'https://www.comfama.com';
+const baseURL = process.env.BASE_URL || 'https://hack.vibefy.net';
 
 const testDir = defineBddConfig({
   features: 'tests/features/**/*.feature',
