@@ -1,0 +1,22 @@
+{
+  "name": "cursor-qa-vibefy",
+  "version": "1.0.0",
+  "description": "Agente de QA para Vibefy Hackathons - Playwright + playwright-bdd + TypeScript",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/clean-reports.mjs && npx bddgen && npx playwright test",
+    "test:no-clean": "npx bddgen && npx playwright test",
+    "test:ui": "npx bddgen && npx playwright test --ui",
+    "test:headed": "npx bddgen && npx playwright test --headed",
+    "report": "npx playwright show-report reports/html",
+    "report:summary": "node scripts/generate-report-summary.mjs",
+    "bddgen": "npx bddgen"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.0.0",
+    "playwright": "^1.49.0",
+    "playwright-bdd": "^8.4.2",
+    "typescript": "^5.6.0"
+  }
+}

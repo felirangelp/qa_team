@@ -1,0 +1,13 @@
+node_modules/
+venv/
+.env
+*.log
+reports/html/
+reports/json/*.json
+reports/screenshots/*
+test-results/
+playwright-report/
+.blob*
+**/gen-*.ts
+.features-gen/
+.DS_Store

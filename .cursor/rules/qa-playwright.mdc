@@ -1,0 +1,70 @@
+---
+description: Reglas no negociables para el agente de QA con Playwright, playwright-bdd, TypeScript y Gherkin
+globs: "**/*.feature,**/*.steps.ts,**/playwright.config.ts,tests/**/*.ts"
+alwaysApply: false
+---
+
+# Reglas no negociables – QA Playwright + BDD
+
+## 1. Especificación en Gherkin
+
+- Todo escenario de prueba debe estar definido en un archivo **.feature** con sintaxis Gherkin válida.
+- Usar solo las palabras clave: `Feature`, `Scenario`, `Given`, `When`, `Then`, `And`, `But`, `Background`, `Scenario Outline`, `Examples`.
+- Un archivo .feature por dominio o flujo (ej. `challenges-listing.feature`, `navigation.feature`).
+
+```gherkin
+# ✅ CORRECTO
+Feature: Listado de Challenges
+  Scenario: La página de challenges carga con contenido
+    Given estoy en la página de challenges
+    When la página termina de cargar
+    Then veo al menos un challenge en el listado
+```
+
+## 2. Steps en TypeScript con Playwright
+
+- Los steps se implementan en archivos **.steps.ts** usando **playwright-bdd** (createBdd).
+- Cada step debe usar el **fixture de Playwright** (page, etc.) inyectado; no crear instancias de browser/page manualmente en los steps.
+- No incluir lógica de negocio compleja dentro del step: delegar en fixtures o helpers.
+
+```typescript
+// ✅ CORRECTO
+import { createBdd } from 'playwright-bdd';
+import { test } from './fixtures';
+
+const { Given, When, Then } = createBdd(test);
+
+Given('estoy en la página de challenges', async ({ page }) => {
+  await page.goto('/challenges');
+});
+```
+
+## 3. Estructura de carpetas
+
+- **features:** solo archivos `.feature`.
+- **steps:** solo archivos `.steps.ts` que implementan los steps de las features.
+- **fixtures:** definición del test base (playwright-bdd) y page objects si se usan.
+- No mezclar steps con tests imperativos fuera de BDD en la misma suite que usa .feature.
+
+## 4. Nomenclatura
+
+- Features: `kebab-case.feature` (ej. `challenges-listing.feature`).
+- Steps: `dominio.steps.ts` (ej. `challenges.steps.ts`).
+- Selectores: preferir `getByRole`, `getByText`, `getByLabel`; usar `data-testid` solo cuando sea necesario y acordado.
+
+## 5. Reportes y trazabilidad
+
+- Cada escenario debe poder identificarse en el reporte por: **Feature name**, **Scenario name**, **Steps** y **Estado**.
+- En fallo: habilitar screenshot, video o trace según configuración del proyecto (en playwright.config.ts).
+- No dejar steps vacíos ni con `pending()` sin motivo documentado (TODO con referencia a ticket).
+
+## 6. Configuración Playwright
+
+- Base URL debe estar centralizada (env o playwright.config.ts).
+- Timeout y retries definidos en config; evitar timeouts arbitrarios dentro de steps salvo casos justificados.
+
+## 7. Prohibiciones
+
+- No escribir pruebas UI sin escenario Gherkin asociado cuando se use playwright-bdd.
+- No hardcodear credenciales ni tokens; usar variables de entorno.
+- No subir a repositorio archivos de reporte con datos sensibles (traces con cookies, etc.).
